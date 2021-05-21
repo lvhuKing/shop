@@ -1,0 +1,83 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: gateway-service
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.30.12:8848   # nacos作为注册中心的地址
+      config:
+        server-addr: 192.168.30.12:8848   # nacos作为配置中心的地址
+    # 路由、谓词、过滤器
+    gateway:
+      routes: 
+      - id: account-service               # 路由Id，唯一性
+        uri: lb://account-service         # lb(load balance) + 注册服务名
+        predicates:                       # 访问路径是/api/account-service开头的，转发至微服务
+        - Path=/api/account-service/**
+        filters:                          # StripPrefix: 转发到具体服务，去除前缀，路径截取个数为2
+        - StripPrefix=2                   # 如：localhost:/9000/api/account-service/getAll即访问
+      - id: order-service
+        uri: lb://order-service
+        predicates:
+        - Path=/api/order-service/**
+        filters:
+        - StripPrefix=2
+      - id: product-service
+        uri: lb://product-service
+        predicates:
+        - Path=/api/product-service/**
+        filters:
+        - StripPrefix=2
+      - id: basic-service
+        uri: lb://basic-service
+        predicates:
+        - Path=/api/basic-service/**
+        filters:
+        - StripPrefix=2
+      - id: rocketmq-demo
+        uri: lb://rocketmq-demo
+        predicates:
+        - Path=/api/rocketmq-demo/**
+        filters:
+        - StripPrefix=2
+      - id: tx-rocketmq-producer
+        uri: lb://tx-rocketmq-producer
+        predicates:
+        - Path=/api/tx-rocketmq-producer/**
+        filters:
+        - StripPrefix=2
+      - id: tx-rocketmq-consumer1
+        uri: lb://tx-rocketmq-consumer1
+        predicates:
+        - Path=/api/tx-rocketmq-consumer1/**
+        filters:
+        - StripPrefix=2
+      - id: tx-rocketmq-consumer2
+        uri: lb://tx-rocketmq-consumer2
+        predicates:
+        - Path=/api/tx-rocketmq-consumer2/**
+        filters:
+        - StripPrefix=2
+      - id: tx-rocketmq-consumer3
+        uri: lb://tx-rocketmq-consumer3
+        predicates:
+        - Path=/api/tx-rocketmq-consumer3/**
+        filters:
+        - StripPrefix=2
+  redis:
+    database: 10
+    host: 127.0.0.1
+    password: 1234
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1s
+        max-idle: 8
+        min-idle: 0
+logging:
+  level:
+    com.alibaba.nacos.config.impl: WARN

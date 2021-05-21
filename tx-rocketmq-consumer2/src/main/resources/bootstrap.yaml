@@ -1,0 +1,17 @@
+server:
+  port: 9028
+spring:
+  application:
+    name: tx-rocketmq-consumer2
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+rocketmq:
+  name-server: 127.0.0.1:9876 # rocketmq访问地址
+  consumer:
+    group: group_tx_consumer
+logging:
+  level:
+    org.springframework.web: DEBUG
+    com.alibaba.nacos.config.impl: WARN

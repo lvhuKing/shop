@@ -1,0 +1,97 @@
+server:
+  port: 9021
+spring:
+  profiles:
+    active: dev # 使用环境
+  devtools:
+    restart:
+      enabled: true # 开启热部署
+  application:
+    name: order-service
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${db.ip}:${db.port}/${db.db-name}?useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=Asia/Shanghai
+    username: ${db.username}
+    password: ${db.password}
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.30.12:8848
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080 # sentinel服务端地址  
+      eager: true # 取消延迟加载
+      #sentinel数据源连接nacos
+      datasource:
+        ds:
+          nacos:
+            server-addr: 127.0.0.1:8848 #nacos地址
+            data-id: ${spring.application.name}-sentinel #nacos存储使用到的dataId
+            group-id: DEFAULT_GROUP #nacos存储使用到的groupId
+            rule-type: flow #限流规则        
+    alibaba:
+      seata:
+        tx-service-group: ${spring.application.name}-seata
+  redis:
+    database: 11
+    host: 127.0.0.1
+    port: 6379
+    password: 1234
+    lettuce:
+      pool:
+        max-active: 8 # 连接池最大连接数（负值表示没限制）默认8
+        max-wait: -1s # 连接池最大阻塞等待时间（负值表示没限制）默认-1
+        max-idle: 8   # 连接池中最大空闲连接 默认8
+        min-idle: 0   # 连接池中的最小空闲连接 默认0
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: shop.order.entity
+  configuration:
+    #设置允许mybatis返回空值
+    call-setters-on-nulls: true
+    return-instance-for-empty-row: true
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"        # 激活所有的端点的web方式请求
+logging:
+  level:
+#    root: info # 设置控制台日志等级为info
+    org.springframework.web: DEBUG
+    com.alibaba.nacos.client.naming: error
+    com.alibaba.nacos.config.impl: WARN
+  file:
+    name: log/order-service.log # 相对路径 【默认情况下，日志文件大小达到10MB会切分一次，产生新的日志文件】
+##############调用者：支持服务降级##############
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:  # 服务名，default表示所有服务,使用Feign调用其他模块服务时，防止出现超时：Read timed out
+        connectTimeout: 100000
+        readTimeout: 100000
+####################配置seata服务##################
+#seata:
+#  application-id: ${spring.application.name}
+#  # 和nacos中保持一致
+##  tx-service-group: order-service-seata
+#  config:
+#    type: nacos
+#    nacos:
+#      application: seata-server # seata服务在nacos中名称
+#      server-addr: 127.0.0.1:8848
+#      namespace: seata-server-namespace
+#      # 需要server端（registry和config）保持一致
+#      group: SEATA_GROUP
+#  registry:
+#    type: nacos
+#    nacos:
+#      server-addr: 127.0.0.1:8848
+########################rocketmq#########################
+rocketmq:
+  name-server: localhost:9876
+#  consumer:
+#    group: rocket20210317

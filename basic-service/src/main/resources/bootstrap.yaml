@@ -1,0 +1,88 @@
+server:
+  port: 9024
+db:
+  ip: 127.0.0.1
+  port: 3306
+  db-name: seata-basic
+  username: root
+  password: 1234
+rocketmq:
+  name-server: 192.68.30.12:9876
+  producer:
+    group: rocketdemo
+    send-message-timeout: 3000
+#######阿里云短信：AK信息、短信签名、短信模板，可在短信控制台中找到#######
+#aliyun:
+#  text-message:
+#    accessKey-id:
+#    accessKey-secret:  
+#    signname:
+#    template-code:
+######腾讯云短信: SDKAppID、API访问秘钥、短信签名内容、短信模板ID
+tencent:
+  sdkAppID: 1400486968
+  secretId: AKIDPZaL2itn6FEy4yEARUxB9sLZVuHQAuGN
+  secretKey: 1mJe4HmUziDVYO0RdZrvjuyUptBN7duK
+  sign: 创知空间
+  templateID: 875089
+         
+spring:
+  application:
+    name: basic-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  mail:
+    default-encoding: utf-8
+    host: smtp.163.com
+    username: lvhuking@163.com
+    password: PLXZJOQWQGQFZZRZ
+    properties:
+      mail:
+        stmp:
+          auth: ture
+          starttls:
+            enable: true
+            required: true
+  # springboot1.0默认使用Jedis客户端，2.0替换成Lettuce
+  # Lettuce是一个可伸缩线程安全的Redis客户端，多个线程可共享同一个RedisConnection      
+  redis:
+    database: 10 #reids数据库索引
+    host: 127.0.0.1
+    port: 6379
+    password: 1234
+    lettuce:
+      pool:
+        max-active: 8 # 连接池最大连接数（负值表示没限制）默认8
+        max-wait: -1s # 连接池最大阻塞等待时间（负值表示没限制）默认-1
+        max-idle: 8   # 连接池中最大空闲连接 默认8
+        min-idle: 0   # 连接池中的最小空闲连接 默认0
+#    jedis:
+#      pool:
+#        max-active: 1000
+#        max-wait: 1000s
+#        max-idle: 100
+#        min-idle: 10
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${db.ip}:${db.port}/${db.db-name}?useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=Asia/Shanghai
+    username: ${db.username}
+    password: ${db.password}
+    #########################Mybatis#######################
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  ype-aliases-package: shop.basic.entity
+  configuration:
+    call-setters-on-nulls: true
+    return-instance-for-empty-row: true
+    #########################日志#######################
+    logging:
+      level:
+        root: info # 设置控制台日志等级为info
+        org.springframework.web: info
+        com.alibaba.nacos.client.naming: info
+      file:
+        name: log/basic-service.log # 相对路径 【默认情况下，日志文件大小达到10MB会切分一次，产生新的日志文件
+

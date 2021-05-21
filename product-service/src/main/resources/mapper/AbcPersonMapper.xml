@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.product.mapper.AbcPersonMapper">
+  <resultMap id="BaseResultMap" type="com.product.entity.AbcPerson">
+    <!--@mbg.generated-->
+    <!--@Table abc_person-->
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="banlance" jdbcType="DECIMAL" property="banlance" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="delete_flg" jdbcType="CHAR" property="deleteFlg" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    user_id, `name`, id_card, banlance, mobile, create_time, update_time, delete_flg
+  </sql>
+  <select id="getByMobile" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from abc_person
+    where mobile = #{mobile,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from abc_person
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from abc_person
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.product.entity.AbcPerson">
+    <!--@mbg.generated-->
+    insert into abc_person (user_id, `name`, id_card, 
+      banlance, mobile, create_time, 
+      update_time, delete_flg)
+    values (#{userId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
+      #{banlance,jdbcType=DECIMAL}, #{mobile,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleteFlg,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.product.entity.AbcPerson">
+    <!--@mbg.generated-->
+    insert into abc_person
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="banlance != null">
+        banlance,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="deleteFlg != null">
+        delete_flg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="banlance != null">
+        #{banlance,jdbcType=DECIMAL},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlg != null">
+        #{deleteFlg,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.product.entity.AbcPerson">
+    <!--@mbg.generated-->
+    update abc_person
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="banlance != null">
+        banlance = #{banlance,jdbcType=DECIMAL},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlg != null">
+        delete_flg = #{deleteFlg,jdbcType=CHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.product.entity.AbcPerson">
+    <!--@mbg.generated-->
+    update abc_person
+    set `name` = #{name,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      banlance = #{banlance,jdbcType=DECIMAL},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_flg = #{deleteFlg,jdbcType=CHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+</mapper>

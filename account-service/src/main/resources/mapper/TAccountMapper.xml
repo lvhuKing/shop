@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.account.mapper.TAccountMapper">
+  <resultMap id="BaseResultMap" type="shop.account.entity.TAccount">
+    <!--@mbg.generated-->
+    <!--@Table t_account-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="account_value" jdbcType="DOUBLE" property="accountValue" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, account_value
+  </sql>
+  <select id="getAll" resultMap="BaseResultMap">
+    select * from t_account
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from t_account
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from t_account
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insertSelective" parameterType="shop.account.entity.TAccount">
+    <!--@mbg.generated-->
+    insert into t_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="accountValue != null">
+        account_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="accountValue != null">
+        #{accountValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="shop.account.entity.TAccount">
+    <!--@mbg.generated-->
+    update t_account
+    <set>
+      <if test="accountValue != null">
+        account_value = #{accountValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- 
+        该pom既是聚合pom,又是继承pom:
+        【modules】聚合： 一次性将所有maven工程安装到本地仓库中
+        【parent】继承：统一管理依赖版本，减少依赖冲突
+        packaging: pom
+        dependencyManagement: 统一管理依赖版本
+      -->
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.5.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    
+    <groupId>com.ccl</groupId>
+    <artifactId>shopping</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    
+    <developers>
+        <developer>
+            <name>ccl</name>
+            <email>lvhuking@163.com</email>
+        </developer>
+    </developers>
+    
+    <modules>
+        <module>product-service</module>
+        <module>order-service</module>
+        <module>stock-service</module>
+        <module>account-service</module>
+        <module>shopping-api</module>
+        <module>shopping-common</module>
+        <module>common-dependencies</module>
+        <module>shopping-entity</module>
+        <module>gateway-service</module>
+        <module>basic-service</module>
+        <module>rocketmq-demo</module>
+        <module>tx-rocketmq-producer</module>
+        <module>tx-rocketmq-consumer1</module>
+        <module>tx-rocketmq-consumer2</module>
+        <module>tx-rocketmq-consumer3</module>
+    </modules>
+    
+    <properties>
+        <!-- Environment Settings -->
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- Spring Settings -->
+        <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
+        <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
+        <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
+        <!-- Dependency Versions -->
+        <redis.version>2.3.5.RELEASE</redis.version>
+        <commons-pool2.version>2.9.0</commons-pool2.version>
+        <spring-cloud-commons.version>2.2.2.RELEASE</spring-cloud-commons.version>
+        <spring-cloud-openfeign.version>2.2.2.RELEASE</spring-cloud-openfeign.version>
+        <spring-cloud-gateway.version>2.2.2.RELEASE</spring-cloud-gateway.version>
+        <alibaba.version>2.2.1.RELEASE</alibaba.version>
+        <spring-cloud-starter-gateway.version>2.2.5.RELEASE</spring-cloud-starter-gateway.version>
+        <!-- sentinel-datasource-nacos -->
+        <sentinel-datasource-nacos.version>1.8.0</sentinel-datasource-nacos.version>
+        <!--spring-boot-->
+        <spring.boot.version>2.2.5.RELEASE</spring.boot.version>
+        <!-- logging -->
+        <lombok.version>1.18.12</lombok.version>
+        <!-- openfeign -->
+        <openfeign.version>2.2.5.RELEASE</openfeign.version>
+        <!-- spring-cloud-alibaba-seata -->
+        <spring-cloud-alibaba-seata.version>2.2.0.RELEASE</spring-cloud-alibaba-seata.version>
+        <seata-spring-boot-starter.version>1.3.0</seata-spring-boot-starter.version>
+        <!-- mysql -->
+        <mysql.version>8.0.21</mysql.version>
+        <!-- tk.mybatis -->
+        <tk.mybatis.version>2.1.5</tk.mybatis.version>
+        <!-- alibaba.druid -->
+        <alibaba.druid.version>1.1.23</alibaba.druid.version>
+        <!-- pagehelper -->
+        <pagehelper.version>1.3.0</pagehelper.version>
+        <!-- commons-beanutils -->
+        <commons-beanutils.version>1.9.4</commons-beanutils.version>
+        <!-- commons-lang3 -->
+        <commons-lang3.version>3.11</commons-lang3.version>
+        <!-- spring-core -->
+        <spring-core.version>5.2.9.RELEASE</spring-core.version>
+        <!-- log4j -->
+        <log4j.version>1.2.17</log4j.version>
+        <!-- log4j-core -->
+        <log4j-core.version>2.13.3</log4j-core.version>
+        <!--log4j-1.2-api-->
+        <log4j-1.2-api.version>2.13.3</log4j-1.2-api.version>
+        <!-- slf4j-api -->
+        <slf4j.version>2.0.0-alpha1</slf4j.version>
+        <!-- slf4j-log4j12 -->
+        <slf4j-log4j12.version>2.0.0-alpha1</slf4j-log4j12.version>
+        <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <java-jwt.version>3.11.0</java-jwt.version>
+        <fastjson.version>1.2.75</fastjson.version>
+        <rocketmq.version>2.2.0</rocketmq.version>
+        <!--spring-boot-devtools-->
+        <spring-boot-devtools.version>2.3.4.RELEASE</spring-boot-devtools.version>
+    </properties>
+
+    <dependencies>
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    
+    <dependencyManagement>
+        <dependencies>
+            <!--spring-cloud-dependencies-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--spring-cloud-alibaba-dependencies-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--spring-boot-starter-parent-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--spring-cloud-commons-dependencies-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-commons-dependencies</artifactId>
+                <version>${spring-cloud-commons.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--spring-cloud-openfeign-dependencies-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-openfeign-dependencies</artifactId>
+                <version>${spring-cloud-openfeign.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--spring-cloud-gateway-dependencies-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-gateway-dependencies</artifactId>
+                <version>${spring-cloud-gateway.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- redis: springboot中的redis依赖 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${redis.version}</version>
+            </dependency>
+            <!-- redis: lettuce pool 缓存连接池 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2.version}</version>
+            </dependency>
+
+            <!-- spring-cloud-starter-gateway -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-gateway</artifactId>
+                <version>${spring-cloud-starter-gateway.version}</version>
+            </dependency>
+            <!-- nacos -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                <version>${alibaba.version}</version>
+            </dependency>
+            <!-- nacos-config -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                <version>${alibaba.version}</version>
+            </dependency>
+            <!-- spring-cloud-starter-alibaba-sentinel -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+                <version>${alibaba.version}</version>
+            </dependency>
+            <!-- sentinel-datasource-nacos -->
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-datasource-nacos</artifactId>
+                <version>${sentinel-datasource-nacos.version}</version>
+            </dependency>
+            <!-- spring-boot-starter-web -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+            <!-- spring-boot-starter-actuator -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+            <!-- lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <!-- openfeign -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${openfeign.version}</version>
+            </dependency>
+            <!-- spring-cloud-alibaba-seata -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-seata</artifactId>
+                <version>${spring-cloud-alibaba-seata.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>${seata-spring-boot-starter.version}</version>
+            </dependency>
+            <!-- alibaba.druid -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${alibaba.druid.version}</version>
+            </dependency>
+            <!-- mysql-connector-java -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <!-- tk.mybatis -->
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>${tk.mybatis.version}</version>
+            </dependency>
+            <!-- pagehelper -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+            <!-- commons-beanutils -->
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
+            </dependency>
+            <!-- commons-lang3 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <!-- spring-core -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring-core.version}</version>
+            </dependency>
+            <!-- log4j -->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <!-- log4j-core -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j-core.version}</version>
+            </dependency>
+            <!-- log4j-1.2-api -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-1.2-api</artifactId>
+                <version>${log4j-1.2-api.version}</version>
+            </dependency>
+
+            <!-- slf4j-api -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <!-- slf4j-simple -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <!-- slf4j-log4j12 -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j-log4j12.version}</version>
+            </dependency>
+            <!-- avax.servlet-api: 获取http相关类 -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet-api.version}</version>
+            </dependency>
+            <!-- jjwt -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <!-- java-jwt -->
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${java-jwt.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <!-- 消息队列：rocketmq-spring-boot-starter -->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>
+            <!-- spring-boot-devtools -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-devtools</artifactId>
+                <version>${spring-boot-devtools.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+        </repository>
+        <repository>
+            <id>nexus-aliyun</id>
+            <name>Nexus aliyun</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <url>https://repo.spring.io/snapshot</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <url>https://repo.spring.io/milestone</url>
+        </pluginRepository>
+    </pluginRepositories>
+    
+</project>

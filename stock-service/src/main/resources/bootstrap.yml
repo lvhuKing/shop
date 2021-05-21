@@ -1,0 +1,30 @@
+server:
+  port: 9022
+spring:
+  application:
+    name: stock-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    alibaba:
+      seata:
+        tx-service-group: ${spring.application.name}-seata
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"        # 激活所有的端点的web方式请求
+logging:
+  level:
+    root: info # 设置控制台日志等级为info
+    org.springframework.web: DEBUG
+    com.alibaba.nacos.client.naming: error
+  file:
+    name: log/stock-service.log # 相对路径 【默认情况下，日志文件大小达到10MB会切分一次，产生新的日志文件】
+    
+#  file:
+#    path: log/product-service.log # 相对路径 【默认情况下，日志文件大小达到10MB会切分一次，产生新的日志文件】
+#  pattern:
+#    console: "%d -%msg%n"   # 配置控制台日志显示格式
+#    file: "%d -%msg%n"    # 配置文件中日志显示格式

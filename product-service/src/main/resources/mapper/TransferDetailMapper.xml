@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.product.mapper.TransferDetailMapper">
+  <resultMap id="BaseResultMap" type="com.product.entity.TransferDetail">
+    <!--@mbg.generated-->
+    <!--@Table transfer_detail-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="msg_id" jdbcType="VARCHAR" property="msgId" />
+    <result column="delete_flg" jdbcType="CHAR" property="deleteFlg" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, user_id, money, msg_id, delete_flg, create_time
+  </sql>
+  <select id="getByMsgId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from transfer_detail
+    where msg_id = #{msgId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from transfer_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from transfer_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.product.entity.TransferDetail" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into transfer_detail (user_id, money, msg_id, 
+      delete_flg, create_time)
+    values (#{userId,jdbcType=BIGINT}, #{money,jdbcType=DECIMAL}, #{msgId,jdbcType=VARCHAR}, 
+      #{deleteFlg,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.product.entity.TransferDetail" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into transfer_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="msgId != null">
+        msg_id,
+      </if>
+      <if test="deleteFlg != null">
+        delete_flg,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="msgId != null">
+        #{msgId,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlg != null">
+        #{deleteFlg,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.product.entity.TransferDetail">
+    <!--@mbg.generated-->
+    update transfer_detail
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="msgId != null">
+        msg_id = #{msgId,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlg != null">
+        delete_flg = #{deleteFlg,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.product.entity.TransferDetail">
+    <!--@mbg.generated-->
+    update transfer_detail
+    set user_id = #{userId,jdbcType=BIGINT},
+      money = #{money,jdbcType=DECIMAL},
+      msg_id = #{msgId,jdbcType=VARCHAR},
+      delete_flg = #{deleteFlg,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

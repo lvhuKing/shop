@@ -1,0 +1,42 @@
+server:
+  port: 9023
+##############数据库信息#############
+db:
+  ip: 127.0.0.1
+  port: 3306
+  db-name: seata-account
+  username: root
+  password: 1234
+#####服务名、nacos服务器地址、seata分布式事务组、数据源##################################################
+spring:
+  application:
+    name: account-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.30.12:8848
+#    alibaba:
+#      seata:
+#        tx-service-group: ${spring.application.name}-seata
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${db.ip}:${db.port}/${db.db-name}?useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=Asia/Shanghai
+    username: ${db.username}
+    password: ${db.password}     
+#########################Mybatis#######################
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: shop.account.entity
+  configuration:
+    call-setters-on-nulls: true
+    return-instance-for-empty-row: true
+#########################日志#######################
+logging:
+  level:
+    root: info # 设置控制台日志等级为info
+    org.springframework.web: DEBUG
+    com.alibaba.nacos.client.naming: error
+  file:
+    name: log/account-service.log # 相对路径 【默认情况下，日志文件大小达到10MB会切分一次，产生新的日志文件】
+

@@ -1,0 +1,6 @@
+db:
+  ip: 127.0.0.1
+  port: 3306
+  db-name: seata-order
+  username: root
+  password: 1234

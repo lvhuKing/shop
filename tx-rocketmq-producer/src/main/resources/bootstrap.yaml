@@ -1,0 +1,28 @@
+server:
+  port: 9026
+spring:
+  application:
+    name: tx-rocketmq-producer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+rocketmq:
+  name-server: 127.0.0.1:9876 # rocketmq访问地址
+  producer:
+    group: group_tx_producer # 消息生产者指定group
+    retry-times-when-send-failed: 3 # 同步发送消息失败重试次数，默认2
+    retry-times-when-send-async-failed: 3 # 异步发送消息失败重试次数，默认2
+    send-message-timeout: 3000 # 消息发送超时时长
+    #topic
+    topic: tx-topic
+    #sync tag(同步消息tag)
+    sync-tag: tx-sync-tags
+    #async tag(异步消息tag)
+    async-tag: tx-async-tags
+    #oneway tag(单向消息tag)
+    oneway-tag: tx-oneway-tags
+logging:
+  level:
+    org.springframework.web: DEBUG
+    com.alibaba.nacos.config.impl: WARN

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.order.mapper.HxPersonMapper">
+  <resultMap id="BaseResultMap" type="com.order.entity.HxPerson">
+    <!--@mbg.generated-->
+    <!--@Table hx_person-->
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="banlance" jdbcType="DECIMAL" property="banlance" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="delete_flg" jdbcType="CHAR" property="deleteFlg" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    user_id, `name`, id_card, banlance, mobile, create_time, update_time, delete_flg
+  </sql>
+  <select id="selectByMobile" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from hx_person
+    where mobile = #{mobile,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from hx_person
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from hx_person
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.order.entity.HxPerson">
+    <!--@mbg.generated-->
+    insert into hx_person (user_id, `name`, id_card, 
+      banlance, mobile, create_time, 
+      update_time, delete_flg)
+    values (#{userId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
+      #{banlance,jdbcType=DECIMAL}, #{mobile,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleteFlg,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.order.entity.HxPerson">
+    <!--@mbg.generated-->
+    insert into hx_person
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="banlance != null">
+        banlance,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="deleteFlg != null">
+        delete_flg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="banlance != null">
+        #{banlance,jdbcType=DECIMAL},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlg != null">
+        #{deleteFlg,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.order.entity.HxPerson">
+    <!--@mbg.generated-->
+    update hx_person
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="banlance != null">
+        banlance = #{banlance,jdbcType=DECIMAL},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteFlg != null">
+        delete_flg = #{deleteFlg,jdbcType=CHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.order.entity.HxPerson">
+    <!--@mbg.generated-->
+    update hx_person
+    set `name` = #{name,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      banlance = #{banlance,jdbcType=DECIMAL},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_flg = #{deleteFlg,jdbcType=CHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>
